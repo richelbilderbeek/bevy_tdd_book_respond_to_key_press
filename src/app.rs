@@ -44,8 +44,13 @@ fn respond_to_keyboard(
     }
     let input = maybe_input.unwrap();
     let mut player_position = query.single_mut();
-    if input.just_pressed(KeyCode::Space) {
+    if input.pressed(KeyCode::Space) {
+        // This I can trigger in a test :-)
         player_position.translation.x += 16.0;
+    }
+    if input.just_pressed(KeyCode::Enter) {
+        // How to trigger this in a test?
+        player_position.translation.y += 16.0;
     }
 }
 
@@ -121,7 +126,7 @@ mod tests {
     }
 
     #[test]
-    fn test_player_responds_to_right_arrow_key() {
+    fn test_player_responds_to_key_press() {
         let mut app = create_app();
         assert!(app.is_plugin_added::<InputPlugin>());
         app.update();
@@ -129,18 +134,35 @@ mod tests {
         // Not moved yet
         assert_eq!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
 
-        // Press the right arrow button
-        // Periwinkle suggestion:
+        // Press the right arrow button, thanks Periwinkle
         app.world
             .resource_mut::<ButtonInput<KeyCode>>()
             .press(KeyCode::Space);
 
-        // Shane Celis' suggestion:
         app.update();
+
+        // Position must have changed now
+        assert_ne!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
+    }
+
+    #[test]
+    fn test_player_responds_to_just_key_press() {
+        let mut app = create_app();
+        assert!(app.is_plugin_added::<InputPlugin>());
+        app.update();
+
+        // Not moved yet
+        assert_eq!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
+
+        // Press the Enter button, thanks Periwinkle
+        app.world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::Enter);
+
         app.update();
         app.update();
 
-        // At least the velocity should change
+        // Fails! The position should have changed
         assert_ne!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
     }
 
