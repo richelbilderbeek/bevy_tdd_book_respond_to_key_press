@@ -10,7 +10,7 @@ fn main() {
     };
     app.add_systems(Startup, add_camera_fun);
 
-    assert_eq!(false, app.is_plugin_added::<InputPlugin>());
+    assert!(!app.is_plugin_added::<InputPlugin>());
     app.add_plugins(DefaultPlugins);
     assert!(app.is_plugin_added::<InputPlugin>());
     //app.update(); // Cannot, this will cause a panic

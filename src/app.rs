@@ -19,7 +19,7 @@ pub fn create_app() -> App {
 
     // Do not do update, as this will disallow to do more steps
     // app.update(); //Don't!
-    return app;
+    app
 }
 
 fn add_player(mut commands: Commands) {
@@ -57,17 +57,17 @@ pub fn count_n_players(app: &App) -> usize {
             n += 1;
         }
     }
-    return n;
+    n
 }
 
 #[cfg(test)]
 fn get_player_position(app: &mut App) -> Vec3 {
     // Do 'app.update()' before calling this function,
     // else this assert goes off.
-    assert_eq!(count_n_players(&app), 1);
+    assert_eq!(count_n_players(app), 1);
     let mut query = app.world.query::<(&Transform, &Player)>();
     let (transform, _) = query.single(&app.world);
-    return transform.translation;
+    transform.translation
 }
 
 #[cfg(test)]
