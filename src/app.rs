@@ -1,4 +1,4 @@
-use bevy::input::keyboard::KeyCode;
+use bevy::input::keyboard::*;
 use bevy::input::InputPlugin;
 use bevy::prelude::*;
 
@@ -147,6 +147,9 @@ mod tests {
 
     #[test]
     fn test_player_responds_to_just_key_press() {
+        use bevy::input::keyboard::KeyboardInput;
+        use bevy::input::ButtonState;
+
         let mut app = create_app();
         assert!(app.is_plugin_added::<InputPlugin>());
         app.update();
@@ -154,10 +157,13 @@ mod tests {
         // Not moved yet
         assert_eq!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
 
-        // Press the Enter button, thanks Periwinkle
-        app.world
-            .resource_mut::<ButtonInput<KeyCode>>()
-            .press(KeyCode::Enter);
+        // Press the Enter button, thanks kristoff3r
+        app.world.send_event(KeyboardInput {
+            key_code: KeyCode::Enter,
+            logical_key: Key::Enter,
+            state: ButtonState::Pressed,
+            window: Entity::PLACEHOLDER,
+        });
 
         app.update();
         app.update();
