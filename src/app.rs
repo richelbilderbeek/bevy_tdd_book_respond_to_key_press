@@ -37,12 +37,8 @@ fn add_player(mut commands: Commands) {
 
 fn respond_to_keyboard(
     mut query: Query<&mut Transform, With<Player>>,
-    maybe_input: Option<Res<ButtonInput<KeyCode>>>,
+    input: Res<ButtonInput<KeyCode>>,
 ) {
-    if maybe_input.is_none() {
-        return;
-    }
-    let input = maybe_input.unwrap();
     let mut player_position = query.single_mut();
     if input.pressed(KeyCode::Space) {
         // Do something
