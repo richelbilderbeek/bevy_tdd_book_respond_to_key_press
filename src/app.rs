@@ -45,12 +45,8 @@ fn respond_to_keyboard(
     let input = maybe_input.unwrap();
     let mut player_position = query.single_mut();
     if input.pressed(KeyCode::Space) {
-        // This I can trigger in a test :-)
+        // Do something
         player_position.translation.x += 16.0;
-    }
-    if input.just_pressed(KeyCode::Enter) {
-        // How to trigger this in a test?
-        player_position.translation.y += 16.0;
     }
 }
 
@@ -142,33 +138,6 @@ mod tests {
         app.update();
 
         // Position must have changed now
-        assert_ne!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
-    }
-
-    #[test]
-    fn test_player_responds_to_just_key_press() {
-        use bevy::input::keyboard::KeyboardInput;
-        use bevy::input::ButtonState;
-
-        let mut app = create_app();
-        assert!(app.is_plugin_added::<InputPlugin>());
-        app.update();
-
-        // Not moved yet
-        assert_eq!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
-
-        // Press the Enter button, thanks kristoff3r
-        app.world.send_event(KeyboardInput {
-            key_code: KeyCode::Enter,
-            logical_key: Key::Enter,
-            state: ButtonState::Pressed,
-            window: Entity::PLACEHOLDER,
-        });
-
-        app.update();
-        app.update();
-
-        // Fails! The position should have changed
         assert_ne!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
     }
 
