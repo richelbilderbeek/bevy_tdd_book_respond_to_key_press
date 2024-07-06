@@ -14,4 +14,3 @@ txt
 wordlist
 yml
 codecov
-keypress
