@@ -115,7 +115,7 @@ mod tests {
         assert_eq!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
 
         // Press the right arrow button, thanks Periwinkle
-        app.world
+        app.world_mut()
             .resource_mut::<ButtonInput<KeyCode>>()
             .press(KeyCode::Space);
 
