@@ -72,11 +72,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_testing() {
-        assert_eq!(1 + 1, 2)
-    }
-
-    #[test]
     fn test_can_create_app() {
         create_app();
     }
@@ -128,12 +123,5 @@ mod tests {
 
         // Position must have changed now
         assert_ne!(Vec3::new(0.0, 0.0, 0.0), get_player_position(&mut app));
-    }
-
-    #[test]
-    fn test_print_all_components_names() {
-        let mut app = create_app();
-        app.update();
-        print_all_components_names(&app);
     }
 }
