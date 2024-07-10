@@ -17,7 +17,6 @@ git clone https://github.com/richelbilderbeek/bevy_tdd_book_respond_to_key_press
 cd bevy_tdd_book_respond_to_key_press
 cargo init
 cargo add bevy
-cargo add bevy -F dynamic_linking
 ```
 
 To [Cargo.toml](Cargo.toml) add:
