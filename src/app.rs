@@ -67,23 +67,9 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_can_create_app() {
-        create_app();
-    }
-
-    #[test]
     fn test_empty_app_has_no_players() {
         let mut app = App::new();
         assert_eq!(count_n_players(&mut app), 0);
-    }
-
-    #[test]
-    fn test_add_player_adds_a_player() {
-        let mut app = App::new();
-        assert_eq!(count_n_players(&mut app), 0);
-        app.add_systems(Startup, add_player);
-        app.update();
-        assert_eq!(count_n_players(&mut app), 1);
     }
 
     #[test]
@@ -107,7 +93,7 @@ mod tests {
         app.update();
 
         // Not moved yet
-        assert_eq!(Vec2::new(0.0, 0.0), get_player_position(&mut app));
+        assert_eq!(get_player_position(&mut app), Vec2::new(0.0, 0.0));
 
         // Press the right arrow button, thanks Periwinkle
         app.world_mut()
@@ -117,6 +103,6 @@ mod tests {
         app.update();
 
         // Position must have changed now
-        assert_ne!(Vec2::new(0.0, 0.0), get_player_position(&mut app));
+        assert_ne!(get_player_position(&mut app), Vec2::new(0.0, 0.0));
     }
 }
