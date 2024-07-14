@@ -90,7 +90,7 @@ mod tests {
     fn test_create_app_has_a_player() {
         let mut app = create_app();
         app.update();
-        assert_eq!(count_n_players(&app), 1);
+        assert_eq!(count_n_players(&mut app), 1);
     }
 
     #[test]
